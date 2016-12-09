@@ -1,8 +1,9 @@
-const core = (config = {}) => {
-  const { dependencies = [], state = {} } = config
+const core = (configuration = {}) => {
+  const { dependencies = [], state = {} } = configuration
 
   return Object.assign(
-    () => core([ ...dependencies ], { ...state }),
+    // () => core([ ...dependencies ], { ...state }),
+    () => ({ getCurrentState: () => state }),
     dependencies.reduce((methods, fn) => {
       return {
         ...methods,
