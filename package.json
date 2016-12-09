@@ -41,5 +41,13 @@
     "distribution",
     "README.md"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogerbf/tor-commander.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rogerbf/tor-commander/issues"
+  },
+  "homepage": "https://github.com/rogerbf/tor-commander#readme"
 }
