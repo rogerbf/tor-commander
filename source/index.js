@@ -8,7 +8,7 @@ export default (configuration = {}) => {
     : configuration
   )
 
-  port === undefined && throwError(Error(`a port has to be defined`))
+  typeof (port) !== `number` && throwError(Error(`a port has to be defined`))
 
   return core({ state: { port, hashedControlPassword } })
 }
