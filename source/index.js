@@ -1,4 +1,5 @@
 import core from './library/core'
+import throwError from './library/throwError'
 
 export default (configuration = {}) => {
   const { port = undefined, hashedControlPassword = undefined } = (
@@ -7,7 +8,7 @@ export default (configuration = {}) => {
     : configuration
   )
 
-  port === undefined && (() => { throw Error(`a port has to be defined`) })()
+  port === undefined && throwError(Error(`a port has to be defined`))
 
   return core({ state: { port, hashedControlPassword } })
 }
