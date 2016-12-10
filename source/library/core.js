@@ -7,7 +7,10 @@ const core = (configuration = {}) => {
       return {
         ...methods,
         // [fn.name]: (...args) => core([ ...dependencies ], fn(state, ...args))
-        [fn.name]: (...args) => core([ ...dependencies ], fn(core, ...args))
+        [fn.name]: (...args) => core({
+          dependencies: [ ...dependencies ],
+          state: fn({ state, ...args })
+        })
       }
     }, {})
   )
