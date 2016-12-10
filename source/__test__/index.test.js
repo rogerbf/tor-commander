@@ -19,7 +19,7 @@ it(`send commands to queue`, () => {
   const signal = `SIGNAL NEWNYM`
   const core = commander(9050)
   expect(core.hasOwnProperty(`send`)).toBeTruthy()
-  // const signalSent = core.send(signal)
-  // expect(signalSent().getCurrentState())
-  //   .toEqual({ port: 9050, queue: [ signal ] })
+  const signalSent = core.send(signal)
+  expect(signalSent().getCurrentState())
+    .toEqual({ port: 9050, queue: [ signal ] })
 })
