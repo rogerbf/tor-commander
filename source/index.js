@@ -1,5 +1,6 @@
 import core from './library/core'
 import send from './library/send'
+import commands from './library/commands'
 
 export default (configuration = {}) => {
   const { port = undefined, hashedControlPassword = undefined } = (
@@ -16,3 +17,5 @@ export default (configuration = {}) => {
     state: { port, hashedControlPassword }
   })
 }
+
+export { commands }

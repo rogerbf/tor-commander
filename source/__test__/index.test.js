@@ -1,6 +1,16 @@
-import commander from '../index.js'
+import commander, { commands } from '../index.js'
 
-it(`exports a function`, () => expect(typeof (commander)).toBe(`function`))
+test(`commander is a function`, () => expect(typeof (commander)).toBe(`function`))
+
+test(`commands is an object`, () => expect(typeof (commands)).toEqual(`object`))
+
+test(`commands has the expected properties`, () => {
+  expect(commands.hasOwnProperty(`AUTHENTICATE`)).toBeTruthy()
+  expect(commands.hasOwnProperty(`SIGNAL`)).toBeTruthy()
+  expect(commands.hasOwnProperty(`ADD_ONION`)).toBeTruthy()
+  expect(commands.hasOwnProperty(`DEL_ONION`)).toBeTruthy()
+  expect(commands.hasOwnProperty(`QUIT`)).toBeTruthy()
+})
 
 it(`throws`, () => {
   expect(() => commander()).toThrowError(Error(`a port has to be defined`))
