@@ -10,6 +10,9 @@ it(`returns the expected output`, () => {
   expect(ADD_ONION(80))
     .toEqual(`ADD_ONION NEW:BEST Flags=Detach Port=80\r\n`)
 
+  expect(ADD_ONION(`80,3000`))
+    .toEqual(`ADD_ONION NEW:BEST Flags=Detach Port=80,3000\r\n`)
+
   expect(ADD_ONION({ port: 80 }))
     .toEqual(`ADD_ONION NEW:BEST Flags=Detach Port=80\r\n`)
 
