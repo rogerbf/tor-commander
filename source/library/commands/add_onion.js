@@ -1,52 +1,60 @@
-// "ADD_ONION" SP KeyType ":" KeyBlob
-//             [SP "Flags=" Flag *("," Flag)]
-//             1*(SP "Port=" VirtPort ["," Target])
-//             *(SP "ClientAuth=" ClientName [":" ClientBlob]) CRLF
+// https://gitweb.torproject.org/torspec.git/tree/control-spec.txt
+// 3.27. ADD_ONION
 
-// KeyType =
-//      "NEW"     / ; The server should generate a key of algorithm KeyBlob
-//      "RSA1024"   ; The server should use the 1024 bit RSA key provided
-//                    in as KeyBlob
-//
-//     KeyBlob =
-//      "BEST"    / ; The server should generate a key using the "best"
-//                    supported algorithm (KeyType == "NEW")
-//      "RSA1024" / ; The server should generate a 1024 bit RSA key
-//                    (KeyType == "NEW")
-//      String      ; A serialized private key (without whitespace)
-//
-//     Flag =
-//      "DiscardPK" / ; The server should not include the newly generated
-//                      private key as part of the response.
-//      "Detach"    / ; Do not associate the newly created Onion Service
-//                      to the current control connection.
-//      "BasicAuth" / ; Client authorization is required using the "basic"
-//                      method.
-//      "NonAnonymous"; Add a non-anonymous Single Onion Service. Tor
-//                      checks this flag matches its configured hidden
-//                      service anonymity mode.
-//
-//     VirtPort = The virtual TCP Port for the Onion Service (As in the
-//                HiddenServicePort "VIRTPORT" argument).
-//
-//     Target = The (optional) target for the given VirtPort (As in the
-//              optional HiddenServicePort "TARGET" argument).
-//
-//     ClientName = An identifier 1 to 16 characters long, using only
-//                  characters in A-Za-z0-9+-_ (no spaces).
-//
-//     ClientBlob = Authorization data for the client, in an opaque format
-//                  specific to the authorization method.
-//
-//   The server reply format is:
-//     "250-ServiceID=" ServiceID CRLF
-//     ["250-PrivateKey=" KeyType ":" KeyBlob CRLF]
-//     *("250-ClientAuth=" ClientName ":" ClientBlob CRLF)
-//     "250 OK" CRLF
-//
-//     ServiceID = The Onion Service address without the trailing ".onion"
-//                 suffix
-
-export default (configuration = { Flags: [ `Detach` ] }) => {
-
+// 80
+// [ `22`, `90` ]
+// [ 22, { virtPort: 80, target: 8080 } ]
+// `80,192.168.1.1:8080`
+// Port=80
+// Port=80,192.168.1.1:8080
+// Port=22 Port=80,8080
+const parsePort = (acc, ports) => {
+  return acc.concat(
+    typeof (ports) === `object`
+    ? ` Port=${ports.virtPort}`.concat(ports.target ? `,${ports.target}` : ``)
+    : ` Port=${ports}`
+  )
 }
+
+export default (configuration = {}) => {
+  const {
+    keyType = `NEW`,        // required
+    keyBlob = `BEST`,       // required
+    flags = [ `Detach` ],   // recommended*
+    port,                   // required
+    clientName,
+    clientBlob
+  } = (
+    typeof (configuration) === `object`
+    ? configuration
+    : { port: configuration }
+  )
+
+  !port && (() => { throw Error(`missing argument: port`) })()
+
+  return (
+    `ADD_ONION`
+      .concat(
+        configuration.keyBlob
+        ? (
+          keyBlob.slice(0, 7) === `RSA1024`
+          ? ` ${keyBlob}`
+          : ` RSA1024:${keyBlob}`
+        )
+        : ` ${keyType}:${keyBlob}`
+      )
+      .concat(` Flags=${flags.join(`,`)}`)
+      .concat(
+        Array.isArray(port)
+        ? port.reduce(parsePort, ``)
+        : Array.of(port).reduce(parsePort, ``)
+      )
+      .concat(clientName ? ` ClientAuth=${clientName}` : ``)
+      .concat((clientName && clientBlob) ? `:${clientBlob}` : ``)
+      .trim()
+      .concat(`\r\n`)
+  )
+}
+
+// *without "Detach", the hidden service will go down when
+// the control connection closes
