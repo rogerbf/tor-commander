@@ -1,4 +1,4 @@
-import execute from './execute.js'
+import execute from './execute'
 
 test(`execute`, () => {
   expect(typeof (execute)).toEqual(`function`)

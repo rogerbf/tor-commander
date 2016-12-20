@@ -1,4 +1,4 @@
-import ADD_ONION from './add_onion.js'
+import ADD_ONION from './add_onion'
 
 it(`is a function`, () => expect(typeof (ADD_ONION)).toEqual(`function`))
 

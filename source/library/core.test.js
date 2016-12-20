@@ -1,4 +1,4 @@
-import core from './core.js'
+import core from './core'
 
 it(`exports a function`, () => expect(typeof (core)).toEqual(`function`))
 

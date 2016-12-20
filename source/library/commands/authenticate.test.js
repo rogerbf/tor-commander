@@ -1,4 +1,4 @@
-import AUTHENTICATE from './authenticate.js'
+import AUTHENTICATE from './authenticate'
 
 it(`is a function`, () => expect(typeof (AUTHENTICATE)).toEqual(`function`))
 

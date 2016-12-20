@@ -1,4 +1,4 @@
-import DEL_ONION from './del_onion.js'
+import DEL_ONION from './del_onion'
 
 it(`exports a function`, () => expect(typeof (DEL_ONION)).toEqual(`function`))
 

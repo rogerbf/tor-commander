@@ -1,4 +1,4 @@
-import send from './send.js'
+import send from './send'
 
 it(`is function`, () => expect(typeof (send)).toBe(`function`))
 
