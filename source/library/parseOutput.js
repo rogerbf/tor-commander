@@ -1,7 +1,4 @@
-const maybeParseInt = (str) => {
-  const parsed = parseInt(str, 10)
-  return isNaN(parsed) ? str : parsed
-}
+const maybeParseInt = str => parseInt(str, 10) || str
 
 const destructureData = data => {
   const parsed = (
