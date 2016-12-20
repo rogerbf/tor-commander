@@ -1,4 +1,4 @@
-import commander, { commands } from '../index.js'
+import commander, { commands } from './index.js'
 
 test(`commander is a function`, () => expect(typeof (commander)).toBe(`function`))
 

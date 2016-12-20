@@ -1,4 +1,4 @@
-import parse from '../library/parseOutput.js'
+import parse from './parseOutput.js'
 
 test(`parse`, () => {
   expect(typeof (parse)).toEqual(`function`)
