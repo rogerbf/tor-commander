@@ -41,7 +41,9 @@
     "distribution",
     "README.md"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "socket-exec": "^0.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rogerbf/tor-commander.git"
