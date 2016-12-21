@@ -5,6 +5,7 @@ test(`combineOutput`, () => {
 })
 
 test(`expected output`, () => {
+  expect(combineOutput()).toEqual({ success: true, data: {} })
   expect(combineOutput(
     [{ status: 250, message: `OK`, data: {} }]
   )).toEqual({ success: true, data: {} })
@@ -18,6 +19,12 @@ test(`expected output`, () => {
     { status: 650, message: `ControlPort=9055`, data: { ControlPort: 9055 } },
     { status: 250, message: `ControlPort=9056`, data: { ControlPort: 9056 } }
   ])).toEqual({ success: false, data: { ControlPort: [ 9055, 9056 ] } })
+
+  expect(combineOutput([
+    { status: 650, message: `ControlPort=9055`, data: { ControlPort: 9055 } },
+    { status: 250, message: `ControlPort=9056`, data: { ControlPort: 9056 } },
+    { status: 250, message: `ControlPort=9057`, data: { ControlPort: 9057 } }
+  ])).toEqual({ success: false, data: { ControlPort: [ 9055, 9056, 9057 ] } })
 
   expect(combineOutput([
     {

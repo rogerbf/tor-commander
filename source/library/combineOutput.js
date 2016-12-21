@@ -1,3 +1,9 @@
+// example input
+// [
+//   { status: 250, message: `ControlPort=9055`, data: { ControlPort: 9055 } },
+//   { status: 250, message: `ControlPort=9056`, data: { ControlPort: 9056 } }
+// ]
+
 export default (parsedOutput = []) =>
   parsedOutput
   .reduce((combined, fragment) => ({
