@@ -48,3 +48,21 @@ test(`rejects when expected`, () => {
       expect(error).toEqual(`Something went wrong`)
     })
 })
+
+test(`early rejection`, () => {
+  const controlPort = jest.fn(() => Promise.reject(
+    `connection refused`
+  ))
+  const socketExec = jest.fn(() => controlPort)
+  const state = { port: 9055, queue: [ `AUTHENTICATE\r\n` ] }
+
+  const executer = execute({ dependencies: { socketExec }, state })
+
+  executer()
+    .then(result => {
+      expect(result).toBeFalsy()
+    })
+    .catch(error => {
+      expect(error).toEqual(`connection refused`)
+    })
+})
