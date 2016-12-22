@@ -1,3 +1,4 @@
-export default function send ({ state, args }) {
-  return { ...state, queue: state.queue ? [ ...state.queue, ...args ] : args }
-}
+export default ({ Commander, state }) => args => Commander({
+  ...state,
+  queue: state.queue ? [ ...state.queue, args ] : [ args ]
+})

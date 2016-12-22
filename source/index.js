@@ -1,6 +1,8 @@
-import core from './library/core'
 import send from './library/send'
+import execute from './library/execute'
 import commands from './library/commands'
+
+export { commands }
 
 export default (configuration = {}) => {
   const { port = undefined, hashedControlPassword = undefined } = (
@@ -12,10 +14,10 @@ export default (configuration = {}) => {
   typeof (port) !== `number` &&
   (() => { throw Error(`a port has to be defined`) })()
 
-  return core({
-    dependencies: [ send ],
-    state: { port, hashedControlPassword }
+  const Commander = (state = {}) => ({
+    send: send({ Commander, state }),
+    execute: execute({ Commander, state })
   })
-}
 
-export { commands }
+  return Commander({ port, hashedControlPassword })
+}

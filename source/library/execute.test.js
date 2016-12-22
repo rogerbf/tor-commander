@@ -2,6 +2,7 @@ import execute from './execute'
 
 test(`execute`, () => {
   expect(typeof (execute)).toEqual(`function`)
+  expect(typeof (execute({ state: {} }))).toEqual(`function`)
 })
 
 test(`resolves with the expected output`, () => {
@@ -13,7 +14,10 @@ test(`resolves with the expected output`, () => {
     port: 9055,
     queue: [ `AUTHENTICATE\r\n`, `ADD_ONION NEW:BEST Port=80\r\n` ]
   }
-  execute({ dependencies: { socketExec }, state })
+
+  const executer = execute({ dependencies: { socketExec }, state })
+
+  executer()
     .then(result => {
       expect(result).toEqual({
         ServiceID: `foo3hw273rt5xmgh`,
@@ -33,7 +37,14 @@ test(`rejects when expected`, () => {
   ))
   const socketExec = jest.fn(() => controlPort)
   const state = { port: 9055, queue: [ `AUTHENTICATE\r\n` ] }
-  execute({ dependencies: { socketExec }, state })
-    .then(result => expect(result).toBeFalsy())
-    .catch(error => expect(error).toBeTruthy())
+
+  const executer = execute({ dependencies: { socketExec }, state })
+
+  executer()
+    .then(result => {
+      expect(result).toBeFalsy()
+    })
+    .catch(error => {
+      expect(error).toEqual(`Something went wrong`)
+    })
 })
