@@ -35,4 +35,22 @@ test(`parses output`, () => {
 
   expect(parse(`250 closing connection\r\n`))
     .toEqual([{ status: 250, message: `closing connection`, data: {} }])
+
+  expect(parse(`250-ServiceID=foo3hw273rt5xmgh\r\n`))
+    .toEqual([{
+      status: 250,
+      message: `ServiceID=foo3hw273rt5xmgh`,
+      data: {
+        ServiceID: `foo3hw273rt5xmgh`
+      }
+    }])
+
+  expect(parse(`650-ServiceID=foo3hw273rt5xmgh\r\n`))
+    .toEqual([{
+      status: 650,
+      message: `ServiceID=foo3hw273rt5xmgh`,
+      data: {
+        ServiceID: `foo3hw273rt5xmgh`
+      }
+    }])
 })
