@@ -14,7 +14,7 @@ export default (configuration = {}) => {
   typeof (port) !== `number` &&
   (() => { throw Error(`a port has to be defined`) })()
 
-  const Commander = (state = {}) => ({
+  const Commander = (state) => ({
     send: send({ Commander, state }),
     execute: execute({ Commander, state })
   })
