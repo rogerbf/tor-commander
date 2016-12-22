@@ -2,9 +2,7 @@ import send from './library/send'
 import execute from './library/execute'
 import commands from './library/commands'
 
-export { commands }
-
-export default (configuration = {}) => {
+const commander = (configuration = {}) => {
   const { port = undefined, hashedControlPassword = undefined } = (
     typeof (configuration) === `number`
     ? { port: configuration }
@@ -21,3 +19,6 @@ export default (configuration = {}) => {
 
   return Commander({ port, hashedControlPassword })
 }
+
+export { commands, commander }
+export default commander
