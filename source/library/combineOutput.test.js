@@ -10,6 +10,10 @@ test(`expected output`, () => {
     [{ status: 250, message: `OK`, data: {} }]
   )).toEqual({ success: true, data: {} })
 
+  expect(combineOutput(
+    [{ status: 650, message: `NOT OK`, data: {} }]
+  )).toEqual({ success: false, data: {} })
+
   expect(combineOutput([
     { status: 250, message: `ControlPort=9055`, data: { ControlPort: 9055 } },
     { status: 250, message: `ControlPort=9056`, data: { ControlPort: 9056 } }
