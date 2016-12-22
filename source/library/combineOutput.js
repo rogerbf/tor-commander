@@ -8,7 +8,7 @@ export default (parsedOutput = []) =>
   parsedOutput
   .reduce((combined, fragment) => ({
     ...combined,
-    success: combined.success && fragment.status === 250,
+    success: combined.success && (fragment.status === 250),
     data: {
       ...combined.data,
       ...Object.keys(fragment.data).reduce(
