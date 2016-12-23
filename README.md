@@ -47,7 +47,7 @@ Returns a promise. Opens a connection to the Tor control port and writes from th
 
 ## commands
 
-To simplify command construction there are a few helpers available in the exported `commands` object.
+To simplify command construction there are a few helpers available on the exported `commands` object.
 
 ### api
 
