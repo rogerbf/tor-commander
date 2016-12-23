@@ -57,14 +57,14 @@ Returns the correct output depending on wether `hashedControlPassword` is suppli
 
 #### `.ADD_ONION([options])`
 
-Takes an optional options-object:
+Where options:
 
 ```javascript
 {
   keyType, // default: NEW
   keyBlob, // default: BEST
   flags, // default: [ 'Detach' ]
-  port,
+  port, // Required
   clientName,
   clientBlob
 }
