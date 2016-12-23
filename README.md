@@ -1,6 +1,6 @@
 # tor-commander
 
-Promise-based Tor controller. Control a Tor instance via the Control Port.
+Promise-based Tor controller. Control a Tor instance via its Control Port.
 
 ## usage
 
