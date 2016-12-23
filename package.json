@@ -1,7 +1,7 @@
 {
   "name": "tor-commander",
   "version": "0.0.1",
-  "description": "control a tor instance via it's control port",
+  "description": "promise-based Tor controller",
   "main": "./distribution/index.js",
   "scripts": {
     "test": "jest --config .jest",
@@ -21,7 +21,8 @@
   "keywords": [
     "tor",
     "onion",
-    "controlport"
+    "controlport",
+    "control port"
   ],
   "author": "rogerbf <roger@bergfalk.nu> (http://bergfalk.nu/)",
   "license": "MIT",
