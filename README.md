@@ -35,15 +35,15 @@ Available options are:
 }
 ```
 
-A port is required.
+A port is always required.
 
 ### `.send(commandString)`
 
-Queue up a command to be written to the control port.
+Queue up a command to be written to the control port once connected.
 
 ### `.execute()`
 
-Returns a promise. Opens a connection to the Tor control port and writes from the queue. Resolves on positive completion reply, rejects for all other types of replies or if the connection fails in any way.
+Returns a Promise. Opens a connection to the Tor control port and writes from the queue. Resolves on positive completion reply, rejects for all other types of replies or if the connection fails in any way.
 
 ## commands
 
@@ -55,9 +55,9 @@ To simplify command construction there are a few helpers available on the export
 
 Returns the correct output depending on wether `hashedControlPassword` is supplied or not.
 
-#### `.ADD_ONION([options])`
+#### `.ADD_ONION(options)`
 
-Where options:
+Available options:
 
 ```javascript
 {
@@ -72,7 +72,7 @@ Where options:
 
 #### `.DEL_ONION(serviceId)`
 
-Takes a ServiceID (the onion address excluding .onion), note that this does not drop currently connected users.
+Takes a ServiceID (the onion address excluding .onion), note that this does not disconnect currently connected clients.
 
 #### `.SIGNAL.RELOAD`
 
@@ -104,7 +104,7 @@ Switch to clean circuits.
 
 #### `.SIGNAL.HEARTBEAT`
 
-Dump unscheduled heartbeat message.
+Unscheduled heartbeat message.
 
 #### `.QUIT`
 
