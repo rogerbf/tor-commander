@@ -1,4 +1,4 @@
-import send from './library/send'
+import write from './library/write'
 import execute from './library/execute'
 import commands from './library/commands'
 
@@ -13,7 +13,7 @@ const commander = (configuration = {}) => {
   (() => { throw Error(`a port has to be defined`) })()
 
   const Commander = (state) => ({
-    send: send({ Commander, state }),
+    send: write({ Commander, state }),
     execute: execute({ Commander, state })
   })
 

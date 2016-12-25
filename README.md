@@ -10,11 +10,11 @@ import { commander, commands } from 'tor-commander'
 const controlPort = commander(9055)
 
 controlPort
-  .send(commands.AUTHENTICATE())
-  .send(commands.ADD_ONION({ Port: 80 }))
-  .send(commands.QUIT) // close connection, promise resolves
+  .write(commands.AUTHENTICATE())
+  .write(commands.ADD_ONION({ Port: 80 }))
+  .write(commands.QUIT) // close connection, promise resolves
   .execute() // returns a promise
-    .then(keys)
+    .then(data)
     .catch(error)
 ```
 
@@ -37,9 +37,9 @@ Available options are:
 
 A port is always required.
 
-### `.send(commandString)`
+### `.write(commandString)`
 
-Queue up a command to be written to the control port once connected.
+Enqueue a command to be written to the control port once connected.
 
 ### `.execute()`
 
