@@ -15,5 +15,5 @@ test(`throws`, () => {
 test(`returns a function`, () => {
   const instance = commander(9050)
   expect(typeof (instance)).toEqual(`object`)
-  expect(Object.keys(instance)).toEqual([`send`, `execute`])
+  expect(Object.keys(instance)).toEqual([`write`, `execute`])
 })

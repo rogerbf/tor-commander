@@ -13,7 +13,7 @@ const commander = (configuration = {}) => {
   (() => { throw Error(`a port has to be defined`) })()
 
   const Commander = (state) => ({
-    send: write({ Commander, state }),
+    write: write({ Commander, state }),
     execute: execute({ Commander, state })
   })
 
