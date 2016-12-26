@@ -1,7 +1,7 @@
 {
   "name": "tor-commander",
   "version": "0.0.1",
-  "description": "promise-based Tor controller",
+  "description": "manage tor over the control port",
   "main": "./distribution/index.js",
   "scripts": {
     "test": "jest --config .jest",
