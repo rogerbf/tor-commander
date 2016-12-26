@@ -1,6 +1,6 @@
 # tor-commander
 
-Promise-based Tor controller. Control a Tor instance via its Control Port.
+Manage Tor over the control port. Defer a series of `write()` operations that can then be `execute()`:ed to get a Promise that resolves when the connection is closed and all operations have been written to the control port with a positive completion reply.
 
 ## usage
 
@@ -12,8 +12,8 @@ const controlPort = commander(9055)
 controlPort
   .write(commands.AUTHENTICATE())
   .write(commands.ADD_ONION({ Port: 80 }))
-  .write(commands.QUIT) // close connection, promise resolves
-  .execute() // returns a promise
+  .write(commands.QUIT)
+  .execute()
     .then(data)
     .catch(error)
 ```
@@ -22,28 +22,15 @@ controlPort
 
 ### `torCommander(port)`
 
-Creates a commander bound to a specific port, expects a number.
-
-### `torCommander(options)`
-
-Available options are:
-
-```javascript
-{
-  port,
-  hashedControlPassword
-}
-```
-
-A port is always required.
+Expects a number or an object with the property `port`.
 
 ### `.write(commandString)`
 
-Enqueue a command to be written to the control port once connected.
+Defer a command to be written to the control port once connected.
 
 ### `.execute()`
 
-Returns a Promise. Opens a connection to the Tor control port and writes from the queue. Resolves on positive completion reply, rejects for all other types of replies or if the connection fails in any way.
+Returns a Promise. Opens a connection to the Tor control port and writes from the write queue. Resolves on positive completion reply, rejects for all other types of replies or if the connection fails in any way.
 
 ## commands
 
@@ -51,9 +38,9 @@ To simplify command construction there are a few helpers available on the export
 
 ### api
 
-#### `.AUTHENTICATE()`
+#### `.AUTHENTICATE([token])`
 
-Returns the correct output depending on wether `hashedControlPassword` is supplied or not.
+Returns the correct authentication string depending on whether `token` is supplied or not. Where token is the plaintext password.
 
 #### `.ADD_ONION(options)`
 
