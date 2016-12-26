@@ -3,7 +3,7 @@ import execute from './library/execute'
 import commands from './library/commands'
 
 const commander = (configuration = {}) => {
-  const { port = undefined, hashedControlPassword = undefined } = (
+  const { port = undefined } = (
     typeof (configuration) === `number`
     ? { port: configuration }
     : configuration
@@ -12,12 +12,12 @@ const commander = (configuration = {}) => {
   typeof (port) !== `number` &&
   (() => { throw Error(`a port has to be defined`) })()
 
-  const Commander = (state) => ({
+  const Commander = state => ({
     write: write({ Commander, state }),
     execute: execute({ Commander, state })
   })
 
-  return Commander({ port, hashedControlPassword })
+  return Commander({ port })
 }
 
 export { commands, commander }
