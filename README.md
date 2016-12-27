@@ -1,6 +1,6 @@
 # tor-commander
 
-Manage Tor over the control port. Defer a series of `write()` operations that can then be `execute()`:ed to get a Promise that resolves when the connection is closed and all operations have been written to the control port with a positive completion reply.
+Manage Tor over the control port. Defer a series of `write()` operations, then be `execute()` them to get a Promise that resolves when the connection is closed and all operations have been written to the control port with a positive completion reply.
 
 ## usage
 
